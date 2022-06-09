@@ -1,9 +1,23 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link>
-  </nav>
-  <router-view />
+  </nav> -->
+  <main-layout>
+    <router-view />
+  </main-layout>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import mainLayout from "@/layouts/layout.vue";
+
+export default defineComponent({
+  name: "App",
+  components: {
+    mainLayout,
+  },
+});
+</script>
 
 <style lang="scss">
 #app {
