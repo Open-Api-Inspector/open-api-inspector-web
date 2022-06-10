@@ -2,14 +2,14 @@
   <div
     class="space-y-4 bg-green-100 m-2 rounded-xl p-3 hover:bg-green-200 duration-75"
   >
-    <div class="flex cursor-pointer" @click="toggleShowDetail">
+    <div class="flex cursor-pointer w-full" @click="toggleShowDetail">
       <div class="bg-green-500 rounded-xl text-lg p-1.5">GET</div>
       <p class="text-lg duration-100 font-medium text-left p-1.5 ml-1">
         <!-- Request URL -->
         /exampleA/exampleB/apiC
       </p>
 
-      <span class="material-symbols-outlined align-middle m-1.5">
+      <span class="material-symbols-outlined text-right m-1.5 w-full">
         {{ isShowDetail ? "expand_less" : "expand_more" }}
       </span>
     </div>
