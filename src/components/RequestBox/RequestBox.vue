@@ -16,7 +16,7 @@
       </div>
       <p class="text-lg duration-100 font-medium text-left p-1.5 ml-1">
         <!-- Request URL -->
-        /exampleA/exampleB/apiC
+        {{ apiRequest.url }}
       </p>
 
       <span class="material-symbols-outlined text-right m-1.5 w-full">
@@ -62,7 +62,7 @@ export default defineComponent({
           return "orange";
         case RequestMethod.DELETE:
           return "red";
-        case RequestMethod.UPDATE:
+        case RequestMethod.PATCH:
           return "cyan";
         default:
           return "gray";

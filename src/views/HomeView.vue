@@ -23,7 +23,8 @@ export default defineComponent({
   data() {
     return {
       mockedData: {
-        method: RequestMethod.UPDATE,
+        method: RequestMethod.PATCH,
+        url: "/exampleA/exampleB/api",
       } as ApiRequest,
     };
   },

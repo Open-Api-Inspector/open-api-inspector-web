@@ -1,6 +1,6 @@
 export enum RequestMethod {
   GET,
   POST,
-  UPDATE,
+  PATCH,
   DELETE,
 }
