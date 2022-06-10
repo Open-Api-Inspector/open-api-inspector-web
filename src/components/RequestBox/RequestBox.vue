@@ -1,9 +1,19 @@
 <template>
   <div
-    class="space-y-4 bg-green-100 m-2 rounded-xl p-3 hover:bg-green-200 duration-75"
+    class="space-y-4 m-2 rounded-xl p-3 duration-75"
+    :class="
+      generateBackgroundColorClass(apiRequest.method, 100) +
+      ' hover:' +
+      generateBackgroundColorClass(apiRequest.method, 200)
+    "
   >
     <div class="flex cursor-pointer w-full" @click="toggleShowDetail">
-      <div class="bg-green-500 rounded-xl text-lg p-1.5">GET</div>
+      <div
+        class="rounded-xl text-lg p-1.5"
+        :class="generateBackgroundColorClass(apiRequest.method, 500)"
+      >
+        {{ describeEnum(apiRequest.method) }}
+      </div>
       <p class="text-lg duration-100 font-medium text-left p-1.5 ml-1">
         <!-- Request URL -->
         /exampleA/exampleB/apiC
@@ -22,11 +32,12 @@
 import { ApiRequest } from "@/types/ApiRequest";
 import { defineComponent, PropType } from "vue";
 import TabWithIcons from "@/components/RequestBox/Tab.vue";
+import { RequestMethod } from "@/types/RequestMethod";
 
 export default defineComponent({
   name: "RequestBox",
   props: {
-    request: {
+    apiRequest: {
       type: Object as PropType<ApiRequest>,
       required: true,
     },
@@ -42,6 +53,27 @@ export default defineComponent({
   methods: {
     toggleShowDetail() {
       this.isShowDetail = !this.isShowDetail;
+    },
+    getColorByMethod(method: RequestMethod) {
+      switch (method) {
+        case RequestMethod.GET:
+          return "green";
+        case RequestMethod.POST:
+          return "orange";
+        case RequestMethod.DELETE:
+          return "red";
+        case RequestMethod.UPDATE:
+          return "cyan";
+        default:
+          return "gray";
+      }
+    },
+    describeEnum(method: RequestMethod) {
+      return RequestMethod[method];
+    },
+    generateBackgroundColorClass(method: RequestMethod, colorCode: number) {
+      let color: string = this.getColorByMethod(method);
+      return `bg-${color}-${colorCode}`;
     },
   },
 });

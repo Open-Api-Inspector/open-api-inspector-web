@@ -1,22 +1,31 @@
 <template>
   <div class="home">
     <simple-web-socket />
-    <RequestBox />
-    <RequestBox />
-    <RequestBox />
+    <RequestBox :apiRequest="mockedData" />
+    <RequestBox :apiRequest="mockedData" />
+    <RequestBox :apiRequest="mockedData" />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
 import SimpleWebSocket from "@/components/SimpleWebSocket.vue";
 import RequestBox from "@/components/RequestBox/RequestBox.vue";
+import { defineComponent } from "vue";
+import { RequestMethod } from "@/types/RequestMethod";
+import { ApiRequest } from "@/types/ApiRequest";
 
-@Options({
+export default defineComponent({
+  name: "HomeView",
   components: {
     SimpleWebSocket,
     RequestBox,
   },
-})
-export default class HomeView extends Vue {}
+  data() {
+    return {
+      mockedData: {
+        method: RequestMethod.UPDATE,
+      } as ApiRequest,
+    };
+  },
+});
 </script>
