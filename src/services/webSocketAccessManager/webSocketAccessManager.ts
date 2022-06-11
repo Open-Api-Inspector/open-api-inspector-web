@@ -1,6 +1,6 @@
 import { ApiRequest } from "@/types/ApiRequest";
 import { ApiRequestEventListener } from "./apiRequestEventListener";
-import { WebSocketStatusEventListener } from "./websocketStatusEventListener";
+import { WebSocketStatusEventListener } from "@/services/webSocketAccessManager/webSocketStatusEventListener";
 
 export class WebSocketAccessManager {
   private static _instance: WebSocketAccessManager;
