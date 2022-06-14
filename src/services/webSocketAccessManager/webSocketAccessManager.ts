@@ -1,4 +1,5 @@
 import { ApiRequest, newApiRequestFromString } from "@/types/ApiRequest";
+import { RequestMethod } from "@/types/RequestMethod";
 
 import {
   MessageEventListener,
@@ -16,10 +17,10 @@ export default class WebSocketAccessManager {
   private constructor() {
     this._apiRequestSubscriber = [];
     this._webSocketStatusSubscriber = [];
-    this._connect();
+    this.connect();
   }
 
-  private _connect() {
+  private connect() {
     this._webSocketConnection = new WebSocket(
       WebSocketAccessManager.CONNECTION_URL
     );
@@ -31,8 +32,10 @@ export default class WebSocketAccessManager {
 
   subscribeOnNewRequest(subscriber: MessageEventListener) {
     this._apiRequestSubscriber?.push(subscriber);
+
     // return this._requestData;
     this._requestData.forEach((data) => {
+      console.log(data.method + ": " + data.url + ` (${data.requestId})`);
       subscriber(data);
     });
   }
@@ -40,6 +43,12 @@ export default class WebSocketAccessManager {
   _onNewMessage = (event: MessageEvent<string>) => {
     const apiRequestData: ApiRequest = newApiRequestFromString(event.data);
     this._requestData.push(apiRequestData);
+    console.log(
+      apiRequestData.method +
+        ": " +
+        apiRequestData.url +
+        `(${apiRequestData.requestId})`
+    );
     this._apiRequestSubscriber?.forEach((apiRequestEventListener) => {
       apiRequestEventListener(apiRequestData);
     });
@@ -58,7 +67,6 @@ export default class WebSocketAccessManager {
 
   public static get instance(): WebSocketAccessManager {
     if (!WebSocketAccessManager._instance) {
-      console.log("I'm called");
       WebSocketAccessManager._instance = new this();
     }
     return WebSocketAccessManager._instance;
